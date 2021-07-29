@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+  - name: "Set PWM GPIO PIN 32"
+    command: busybox devmem 0x700031fc 32 0x45 && busybox devmem 0x6000d504 32 0x2
+    become: true
+    become_method: sudo
+  
+  - name: "Set PWM GPIO PIN 33"
+    command: busybox devmem 0x70003248 32 0x46 && busybox devmem 0x6000d100 32 0x00
+    become: true
+    become_method: sudo
+  
+  - name: "Run Code"
+    command: "python3 /home/jetbot/src/test.py"
